@@ -1,5 +1,7 @@
 
 import './App.css';
+import '../styles/App.css';
+import firebase from '../config/firebase';
 
 
 
@@ -41,7 +43,7 @@ function App() {
   
   return (
     <>
-    
+    <h1>Find Your Music!</h1>
     
 
 
