@@ -39,84 +39,34 @@ import { useEffect, useState } from 'react';
 function App() {
   
   
-  const apiKey = 'e387d3c7e9d57238bcacc400d12838b1';
   const apiKeyDB = '1';
-  let categoryDB = 'search.php?s';
-  let category = 'track.search';
+  let category = 'search.php?s';
   let artist = '';
   let track = 'believe';
   let sort = '';
-  let userInput = 'adele';
-  
+  let mbid = '32ca187e-ee25-4f18-b7d0-3b6713f24635'
+  let userInput = 'doja';
 
   const [tracks, setTracks] = useState([]);
-  const [searchBy, setSearchBy] = useState('artist');
 
   useEffect(
     () => {
 
-      if (searchBy === artist){
-            const urlDB = new URL(`https://theaudiodb.com/api/v1/json/${apiKeyDB}/${categoryDB}=${userInput}}`);
 
-          fetch(urlDB).then((response)=>{
-            return response.json();
-          }).then ((jsonResponse)=>{
-
-            console.log(jsonResponse);
-
-
-          })
-
-      }
-      else {
+const urlDB = new URL(`https://theaudiodb.com/api/v1/json/${apiKeyDB}/${category}=${userInput}`);
 
 
 
-const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
-
-      const searchParams = new URLSearchParams(
-        {
-
-          
-          method: category,
-          api_key: apiKey,
-          // artist: artist,
-          track: track,
-          format: 'json',
-        }
-      );
-
-      if (false) {
-        //key , value .... S stands for sort in the api documentation
-        searchParams.append('s', sort);
-      }
-      url.search = searchParams;
-
-      fetch(url)
+      fetch(urlDB)
         .then((response) => {
           return response.json();
         })
         .then((jsonResponse) => {
           console.log(jsonResponse);
 
-          const newTrackInfos = jsonResponse.results.trackmatches.track.map((track) => {
-            return {
-              mbid: track.mbid,
-              title: track.name,
-              artist: track.artist,
-              lastFMLink: track.url,
-              image: '',
-            }
-
-
           });
-
-          console.log(newTrackInfos);
-
-
-
-
-          setTracks(newTrackInfos);
+console.log("ok");
+        //   setTracks(newTrackInfos);
 
           // // console.log(jsonResponse);
           // // Sometimes...
@@ -139,33 +89,10 @@ const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
 
 
 
-
-
-
-        })
-
-
-
-
-      }
-    },
+        
+},
     [] // <-- dependency array 
   );
-  
-
-
-    const handleSortByArtistClick = () => {
-    console.log('track!');
-    setSearchBy('track');
-  }
-
-    const handleSortChronoClick = () => {
-    console.log('artist!');
-    setSearchBy('artist');
-  }
-
-
-
 
   console.log(tracks);
   
@@ -173,8 +100,6 @@ const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
     <>
     <h1>Find Your Music!</h1>
 
-
-    <searchBy/>
     <SearchBar/>
     <ResultSection/>
 

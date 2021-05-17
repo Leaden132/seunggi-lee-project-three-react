@@ -2,17 +2,18 @@
   import "firebase/firebase-database"
   
   
+
+  // Your web app's Firebase configuration
   const firebaseConfig = {
-    apiKey: "AIzaSyDuKIid4gbr1zIwYsvfrO5gtCof9VQJnQc",
-    authDomain: "show-me-books-25cdf.firebaseapp.com",
-    projectId: "show-me-books-25cdf",
-    storageBucket: "show-me-books-25cdf.appspot.com",
-    messagingSenderId: "760758900841",
-    appId: "1:760758900841:web:1dc5e37984332773eceaf8"
+    apiKey: "AIzaSyAaOnua7SsS57dNKNaZO4A42-ql5IPD1yc",
+    authDomain: "find-your-music-1a255.firebaseapp.com",
+    projectId: "find-your-music-1a255",
+    storageBucket: "find-your-music-1a255.appspot.com",
+    messagingSenderId: "430185502629",
+    appId: "1:430185502629:web:957daa0c769c4e6111ba4c"
   };
 
-
-  //initialize firebase
+  // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
   export default firebase;
