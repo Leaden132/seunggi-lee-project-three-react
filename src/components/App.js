@@ -1,9 +1,11 @@
 
 import '../styles/App.css';
 import firebase from '../config/firebase';
-
+import SearchBy from './SearchBy';
 import SearchBar from './SearchBar';
 import ResultSection from './ResultSection';
+import RecentSearches from './RecentSearches';
+import Footer from './Footer';
 import { useEffect, useState } from 'react';
 
 
@@ -40,20 +42,38 @@ function App() {
   
   
   const apiKey = 'e387d3c7e9d57238bcacc400d12838b1';
-  const apiKeyDB = '1';
+  const apiKeyDB = '9973533';
   let categoryDB = 'search.php?s';
   let category = 'track.search';
   let artist = '';
   let track = 'believe';
   let sort = '';
-  let userInput = 'adele';
   
 
   const [tracks, setTracks] = useState([]);
   const [searchBy, setSearchBy] = useState('artist');
+  const [searches, setSearches] = useState([]);
+  const [userInput, setUserInput] = useState('');
+
+
+  const dbRef = firebase.database().ref();
 
   useEffect(
     () => {
+
+      dbRef.on('value',(res)=>{
+      const newDataArray = [];
+      const data = res.val();
+      for (let key in data) {
+        // console.log({key: key, name: data[key]});
+        let searches = {key:key, name: data[key]};
+        newDataArray.unshift(searches);
+        
+      }
+      setSearches(newDataArray);
+    })
+
+
 
       if (searchBy === artist){
             const urlDB = new URL(`https://theaudiodb.com/api/v1/json/${apiKeyDB}/${categoryDB}=${userInput}}`);
@@ -61,16 +81,11 @@ function App() {
           fetch(urlDB).then((response)=>{
             return response.json();
           }).then ((jsonResponse)=>{
-
             console.log(jsonResponse);
-
-
           })
 
       }
       else {
-
-
 
 const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
 
@@ -114,8 +129,6 @@ const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
           console.log(newTrackInfos);
 
 
-
-
           setTracks(newTrackInfos);
 
           // // console.log(jsonResponse);
@@ -136,12 +149,6 @@ const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
           // console.log('Cleaned up art objects list', newArtPieces);
           // console.log('Store this cleaned up list in the Art state value...')
           // setArt(newArtPieces);
-
-
-
-
-
-
         })
 
 
@@ -153,6 +160,25 @@ const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
   );
   
 
+
+    const handleUserInput = (event) => {
+    let inputValue = event.target.value;
+    setUserInput(inputValue);
+  }
+
+    const handleSubmitClick = (event) => {
+    event.preventDefault();
+
+    // const dbRef = firebase.database().ref();
+    dbRef.push(userInput);
+
+    setUserInput('');
+  }
+
+    const handleRemoveSearch = (search) => {
+    dbRef.child(search).remove();
+
+  };
 
     const handleSortByArtistClick = () => {
     console.log('track!');
@@ -174,10 +200,11 @@ const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
     <h1>Find Your Music!</h1>
 
 
-    <searchBy/>
-    <SearchBar/>
+    <SearchBy/>
+    <SearchBar userInput = {userInput} handleUserInput = {handleUserInput} handleClick={handleSubmitClick}/>
     <ResultSection/>
-
+    <RecentSearches searches={searches} removeSearch = {handleRemoveSearch}/>
+    <Footer/>
 
 
     </>

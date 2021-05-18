@@ -1,6 +1,5 @@
 
-
-const SearchBar = () => {
+const SearchBar = (props) => {
 
 
     return (
@@ -10,9 +9,9 @@ const SearchBar = () => {
 
         <form>
 
-                    <label for='userInput' className='sr-only'>Search bar</label>
-                    <input type='text' name="userInput" id='userInput' placeholder="Search msuic / artist" required></input>
-                    <button type="submit" className="submitButton">Search</button>
+                    <label htmlFor='userInput' className='sr-only'>Search bar</label>
+                    <input type='text' name="userInput" id='userInput' placeholder="Search msuic / artist" value = {props.userInput} onChange = {props.handleUserInput} required></input>
+                    <button type="submit" className="submitButton" onClick={props.handleClick}>Search</button>
         </form>
 
 

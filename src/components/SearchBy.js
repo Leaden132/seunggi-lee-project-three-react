@@ -5,7 +5,7 @@ const SearchBy = () => {
     return(
 
         <>
-                        <div class="searchByContainer">
+                        <div className="searchByContainer">
                             <button id="searchByArtist" className="searchByButton">Artist</button>
                             <button id="searchByGenre" className="searchByButton">Genre</button>
                         </div>
