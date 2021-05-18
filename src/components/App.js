@@ -42,7 +42,7 @@ function App() {
   
   
   const apiKey = 'e387d3c7e9d57238bcacc400d12838b1';
-  const apiKeyDB = '9973533';
+  const apiKeyDB = '1';
   let categoryDB = 'search.php?s';
   let category = 'track.search';
   let artist = '';
@@ -54,7 +54,7 @@ function App() {
   const [searchBy, setSearchBy] = useState('artist');
   const [searches, setSearches] = useState([]);
   const [userInput, setUserInput] = useState('');
-
+  const [submit, setSubmit] = useState(true);
 
   const dbRef = firebase.database().ref();
 
@@ -75,13 +75,17 @@ function App() {
 
 
 
-      if (searchBy === artist){
-            const urlDB = new URL(`https://theaudiodb.com/api/v1/json/${apiKeyDB}/${categoryDB}=${userInput}}`);
+      if (true){
+            const urlDB = new URL(`https://theaudiodb.com/api/v1/json/${apiKeyDB}/${categoryDB}=${userInput}`);
 
           fetch(urlDB).then((response)=>{
             return response.json();
           }).then ((jsonResponse)=>{
             console.log(jsonResponse);
+
+            
+
+
           })
 
       }
@@ -91,8 +95,6 @@ const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
 
       const searchParams = new URLSearchParams(
         {
-
-          
           method: category,
           api_key: apiKey,
           // artist: artist,
@@ -122,14 +124,11 @@ const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
               lastFMLink: track.url,
               image: '',
             }
-
-
           });
 
           console.log(newTrackInfos);
-
-
           setTracks(newTrackInfos);
+
 
           // // console.log(jsonResponse);
           // // Sometimes...
@@ -150,13 +149,9 @@ const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
           // console.log('Store this cleaned up list in the Art state value...')
           // setArt(newArtPieces);
         })
-
-
-
-
       }
     },
-    [] // <-- dependency array 
+    [submit] // <-- dependency array 
   );
   
 
@@ -164,6 +159,7 @@ const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
     const handleUserInput = (event) => {
     let inputValue = event.target.value;
     setUserInput(inputValue);
+    console.log(userInput)
   }
 
     const handleSubmitClick = (event) => {
@@ -171,8 +167,9 @@ const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
 
     // const dbRef = firebase.database().ref();
     dbRef.push(userInput);
+    setSubmit(!submit);
 
-    setUserInput('');
+    // setUserInput('');
   }
 
     const handleRemoveSearch = (search) => {
@@ -193,7 +190,8 @@ const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
 
 
 
-  console.log(tracks);
+  console.log(searchBy);
+  console.log(userInput);
   
   return (
     <>
