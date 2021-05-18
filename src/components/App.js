@@ -42,12 +42,11 @@ function App() {
   
   
   const apiKey = 'e387d3c7e9d57238bcacc400d12838b1';
-  const apiKeyDB = '1';
+  const apiKeyDB = '523532';
   let categoryDB = 'search.php?s';
   let category = 'track.search';
-  let artist = '';
   let track = 'believe';
-  let sort = '';
+
   
 
   const [tracks, setTracks] = useState([]);
@@ -81,9 +80,40 @@ function App() {
           fetch(urlDB).then((response)=>{
             return response.json();
           }).then ((jsonResponse)=>{
-            console.log(jsonResponse);
 
-            
+
+            if (jsonResponse.artists == null){
+              console.log(jsonResponse.artists)
+              console.log("NOT FOUND");
+            }
+            else {
+              const data = jsonResponse.artists[0]
+                const artistInfo = {
+                  artistName : data.strArtist,
+                  yearBorn : data.intBornYear,
+                  //yearborn is same as yearformed for bands
+                  yearFormed : data.intFormedYear,
+                  memberCount : data.intMembers,
+                  photo : data.strArtistClearart,
+                  logo : data.strArtistLogo,
+                  biography : data.strBiographyEN,
+                  country : data.strCountry,
+                  gender : data.strGender,
+                  genre : data.strGenre,
+                  style : data.strStyle,
+                  facebook : data.strFacebook,
+                  twitter : data.strTwitter,
+                  website : data.strWebsite,
+
+                }
+
+                
+                console.log(artistInfo);
+
+            }
+
+
+
 
 
           })
@@ -105,7 +135,7 @@ const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
 
       if (false) {
         //key , value .... S stands for sort in the api documentation
-        searchParams.append('s', sort);
+        searchParams.append('s', 'sort');
       }
       url.search = searchParams;
 
@@ -176,16 +206,6 @@ const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
     dbRef.child(search).remove();
 
   };
-
-    const handleSortByArtistClick = () => {
-    console.log('track!');
-    setSearchBy('track');
-  }
-
-    const handleSortChronoClick = () => {
-    console.log('artist!');
-    setSearchBy('artist');
-  }
 
 
 
