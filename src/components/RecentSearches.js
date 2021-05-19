@@ -1,6 +1,9 @@
 
 
 const RecentSearches = (props) => {
+
+    let category = props.searchBy;
+
     return(
         <>
         <h4>Recent Searches</h4>
@@ -10,10 +13,10 @@ const RecentSearches = (props) => {
             props.searches.map((search)=>{
                 return(
                     <li className="recentSearch" key ={search.key}>
-                        <p>artist: {search.name}</p>
+                        <p>{category}: {search.name}</p>
                         <img src=""></img>
                         <button className = "button remove"
-               onClick={()=>{props.removeSearch(search.key)}}>Remove Search History</button>
+               onClick={()=>{props.removeSearch(search.key)}}></button>
                     </li>
                 )
             })

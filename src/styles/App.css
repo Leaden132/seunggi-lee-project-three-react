@@ -1,25 +1,133 @@
-html {
-  background-color:black;
-  color:white;
+@import url('https://fonts.googleapis.com/css2?family=Karla&family=Spectral&display=swap');
+
+
+
+
+html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,html [type=button],[type=reset],[type=submit]{-webkit-appearance:button}button::-moz-focus-inner,[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}template{display:none}[hidden]{display:none}
+
+.clearfix:after {visibility: hidden; display: block; font-size: 0; content: ''; clear: both; height: 0; }
+
+html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;}
+
+*, *:before, *:after {box-sizing: inherit}
+
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; white-space: nowrap; clip-path: inset(100%); clip: rect(0 0 0 0); overflow: hidden;}
+
+ul,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+div,
+img,
+section,
+a,
+p {
+    margin: 0;
+    padding: 0;
 }
 
 
-.searchByButton {
-  border-radius: 20px;
-  padding: 16px 30px;
-  margin: 0 25px;
+
+html {
+  background-color:black;
+  color:white;
+  font-size:62.5%;
+  font-family: 'Spectral', serif;
+}
+
+body {
+  background: url('../assets/835508_music-website-background-images-hd_2560x1600_h.webp');
+  background-size:cover;
+}
+
+
+h1 {
+  text-align:center;
+  /* margin-top:5rem; */
+  padding-top:10rem;
+  margin-bottom:5rem;
+  font-size:5rem;
+}
+
+h2 {
+  font-size:2rem;
+}
+
+li {
+  font-size:2rem;
+  list-style:none;
+  margin-left:1.5rem;
+  font-family: 'Karla', sans-serif;
+}
+
+h4 {
+  font-size:2rem;
+}
+
+p {
+  font-size:2rem;
+  margin: 2rem 0;
+}
+
+.recentSearch button {
+  font-size:2rem;
+}
+
+
+
+
+
+.searchByButton,
+.submitButton {
+  border-radius: 2rem;
+  padding: 1.6rem 3rem;
+  margin: 0 2rem;
   text-transform:uppercase;
-  font-size:25px;
+  font-size:2rem;
   background-color:transparent;
   border: 3px solid white;
   line-height:1;
   color:white;
-
 }
 
-.searchByButton:hover {
+
+.searchInput{
+  border-radius: 2rem;
+  padding: 1.6rem 3rem;
+  margin: 0 2rem;
+  font-size:2rem;
+  background-color:transparent;
+  border: 3px solid white;
+  line-height:1;
+  color:white;
+  width:31rem;
+}
+
+.searchInput:focus{
+  background-color:rgb(2, 24, 43);
+  outline: none;
+}
+
+.searchLabel{
+  border-radius: 2rem;
+  padding: 16px 3rem;
+  margin: 0;
+  text-transform:uppercase;
+  font-size:2rem;
+  background-color:transparent;
+  /* border: 3px solid white; */
+  line-height:1;
+  color:white;
+}
+
+.searchByButton:hover,
+.submitButton:hover {
   cursor:pointer;
   border: 3px solid rgb(97, 97, 218);
+  
 }
 
 .searchContainer {
@@ -27,6 +135,51 @@ html {
 }
 
 .searchContainer li {
-  margin: 0 50px;
+  margin: 0 5rem;
 }
 
+.result {
+  border: 3px solid white;
+  width:80vw;
+  min-height:50rem;
+  margin:10rem auto;
+}
+
+.result h2 {
+  text-align:center;
+  font-size:3.5rem;
+  text-transform: uppercase;
+}
+
+.result li {
+  margin: 1.5rem;
+}
+
+.profilePhoto{
+  margin: 2rem 0;
+  margin-left:1.5rem;
+  width:50rem;
+  border: 3px solid rgb(97, 97, 218);
+}
+
+
+
+.search {
+  /* display:none; */
+  margin-top: 5rem;
+  margin-bottom:5rem;
+  
+}
+
+.musicSearch {
+  display:block;
+}
+
+.artistSearch {
+  display:block;
+}
+
+footer p{
+  text-align:center;
+  margin-bottom:0;
+}

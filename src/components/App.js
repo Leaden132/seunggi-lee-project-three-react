@@ -48,8 +48,9 @@ function App() {
   let track = 'believe';
 
   
-
-  const [tracks, setTracks] = useState([]);
+  const [displayResult, setDisplayResult] = useState(false);
+  const [tracks, setTracks] = useState(['']);
+  const [artistInfo, setArtistInfo] = useState('');
   const [searchBy, setSearchBy] = useState('artist');
   const [searches, setSearches] = useState([]);
   const [userInput, setUserInput] = useState('');
@@ -74,7 +75,9 @@ function App() {
 
 
 
-      if (true){
+      if (searchBy === 'artist'){
+        console.log("WORKED!");
+
             const urlDB = new URL(`https://theaudiodb.com/api/v1/json/${apiKeyDB}/${categoryDB}=${userInput}`);
 
           fetch(urlDB).then((response)=>{
@@ -86,10 +89,13 @@ function App() {
               console.log(jsonResponse.artists)
               console.log("NOT FOUND");
             }
+
             else {
               const data = jsonResponse.artists[0]
-                const artistInfo = {
+              console.log(data);
+                setArtistInfo({
                   artistName : data.strArtist,
+                  altName : data.strArtistAlternate,
                   yearBorn : data.intBornYear,
                   //yearborn is same as yearformed for bands
                   yearFormed : data.intFormedYear,
@@ -104,21 +110,12 @@ function App() {
                   facebook : data.strFacebook,
                   twitter : data.strTwitter,
                   website : data.strWebsite,
-
-                }
-
-                
-                console.log(artistInfo);
-
+                }) 
             }
-
-
-
-
-
           })
 
       }
+
       else {
 
 const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
@@ -127,8 +124,7 @@ const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
         {
           method: category,
           api_key: apiKey,
-          // artist: artist,
-          track: track,
+          track: userInput,
           format: 'json',
         }
       );
@@ -152,13 +148,12 @@ const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
               title: track.name,
               artist: track.artist,
               lastFMLink: track.url,
-              image: '',
             }
           });
 
           console.log(newTrackInfos);
           setTracks(newTrackInfos);
-
+          console.log(tracks);
 
           // // console.log(jsonResponse);
           // // Sometimes...
@@ -199,6 +194,8 @@ const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
     dbRef.push(userInput);
     setSubmit(!submit);
 
+    setDisplayResult(true);
+
     // setUserInput('');
   }
 
@@ -207,21 +204,34 @@ const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
 
   };
 
+    const handleSearchBy = (search) => {
+      setSearchBy(search);
+      setDisplayResult(false);
 
+    }
 
 
   console.log(searchBy);
   console.log(userInput);
+  console.log(tracks);
   
   return (
     <>
     <h1>Find Your Music!</h1>
 
 
-    <SearchBy/>
-    <SearchBar userInput = {userInput} handleUserInput = {handleUserInput} handleClick={handleSubmitClick}/>
-    <ResultSection/>
-    <RecentSearches searches={searches} removeSearch = {handleRemoveSearch}/>
+    <SearchBy handleSearchBy = {handleSearchBy}/>
+    <SearchBar searchBy = {searchBy} userInput = {userInput} handleUserInput = {handleUserInput} handleSubmitClick={handleSubmitClick}/>
+
+
+    { displayResult 
+    ? (
+      <ResultSection artistInfo = {artistInfo} tracks = {tracks} searchBy = {searchBy}/>
+    )
+    :<div className = "result"></div>
+
+}
+    <RecentSearches searchBy = {searchBy} searches={searches} removeSearch = {handleRemoveSearch}/>
     <Footer/>
 
 
