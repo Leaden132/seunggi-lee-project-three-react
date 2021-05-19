@@ -6,7 +6,7 @@ const RecentSearches = ({searchBy, searches, searchItemHistory, handleRemoveSear
 
     return(
         <>
-        <h4>Recently Searched artists</h4>
+        <h4>Recently Searched Artists</h4>
         <div className = "recentSearches">
         <ul className = "searchContainer">
         {

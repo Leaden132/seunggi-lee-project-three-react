@@ -189,6 +189,10 @@ p {
   border: 3px solid rgb(2, 24, 43);
 }
 
+.track img {
+  width:30rem;
+}
+
 .recentItem {
   width:30rem;
 }
@@ -217,7 +221,9 @@ p {
   border: 3px solid rgb(2, 24, 43);
 }
 
-
+.track {
+  margin-bottom:2rem;
+}
 
 .search {
   display:none;

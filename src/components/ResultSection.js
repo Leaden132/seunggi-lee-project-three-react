@@ -1,8 +1,8 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const ResultSection = ({artistInfo, tracks, searchBy}) => {
-    console.log(tracks);
+const ResultSection = ({artistPhoto, artistInfo, tracks, searchBy}) => {
+    console.log(artistPhoto);
 
     if (searchBy === 'artist') {
         console.log("art!");
@@ -40,9 +40,15 @@ const ResultSection = ({artistInfo, tracks, searchBy}) => {
             <h2>Result</h2>
             <ul>
                             {
-                tracks.map((track)=>{
+
+
+                tracks.map((track, index)=>{
+                    console.log('CHECK THIS', artistPhoto[index]);
+                    console.log(index);
+                    console.log(track);
                     return(
-                        <li className="track" key={track.mbid}>
+                        <li className="track" key={index}>
+                            <img src={artistPhoto[index]}></img>
                             <p>title: {track.title}</p>
                             <p>artist: {track.artist}</p>
                             <p>last FM Link: {track.lastFMLink}</p>
@@ -50,6 +56,13 @@ const ResultSection = ({artistInfo, tracks, searchBy}) => {
                     )
                 })
             }
+
+            {/* {artistPhoto.map((photo)=>{
+                console.log(photo);
+                return <img src={photo}></img>;
+            })
+            } */}
+
             </ul>
             </div>
         </section>

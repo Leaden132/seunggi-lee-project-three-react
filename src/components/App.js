@@ -28,21 +28,23 @@ function App() {
   const [displayResult, setDisplayResult] = useState(false);
   const [tracks, setTracks] = useState([""]);
   const [artistInfo, setArtistInfo] = useState("");
+  const [artistPhoto, setArtistPhoto] = useState([]);
   const [searchBy, setSearchBy] = useState("artist");
   const [searches, setSearches] = useState([]);
   const [userInput, setUserInput] = useState("");
   const [searchItemHistory, setSearchItemHistory] = useState([]);
-  const [submit, setSubmit] = useState(true);
 
   const dbRef = firebase.database().ref();
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
+    const urlDB = new URL(
+      `https://theaudiodb.com/api/v1/json/${apiKeyDB}/${categoryDB}=${userInput}`
+    );
+    const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
+    
+    
     if (searchBy === "artist") {
       console.log("WORKED!");
-
-      const urlDB = new URL(
-        `https://theaudiodb.com/api/v1/json/${apiKeyDB}/${categoryDB}=${userInput}`
-      );
 
       fetch(urlDB)
         .then((response) => {
@@ -52,6 +54,7 @@ function App() {
           if (jsonResponse.artists == null) {
             console.log(jsonResponse.artists);
             console.log("NOT FOUND");
+            setDisplayResult(false);
           } else {
             const data = jsonResponse.artists[0];
             console.log(data);
@@ -84,9 +87,10 @@ function App() {
             setDisplayResult(true);
           }
         });
-    } else {
-      const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
-
+    } 
+    
+    
+    else {
       const searchParams = new URLSearchParams({
         method: category,
         api_key: apiKey,
@@ -94,10 +98,6 @@ function App() {
         format: "json",
       });
 
-      if (false) {
-        //key , value .... S stands for sort in the api documentation
-        searchParams.append("s", "sort");
-      }
       url.search = searchParams;
 
       fetch(url)
@@ -117,8 +117,35 @@ function App() {
               };
             }
           );
+            console.log(newTrackInfos)
+            
+            const trackArtists = newTrackInfos.map((track)=>{
+              return track.artist;
+            })
 
-          console.log(newTrackInfos);
+            let artistPhotoArray = [];
+
+            for (let i = 0; i < 5; i++){
+              const urlDB = `https://theaudiodb.com/api/v1/json/${apiKeyDB}/${categoryDB}=${trackArtists[i]}`;
+              fetch(urlDB)
+                .then((response) => {
+                  return response.json();
+                })
+                .then((jsonResponse) => {
+                  if (jsonResponse.artists == null) {
+                    console.log("NOT FOUND");
+                  } else {
+                    let artistPhoto = jsonResponse.artists[0].strArtistThumb
+                    artistPhotoArray.push(artistPhoto);
+                    console.log(artistPhotoArray);
+                    
+                  }
+                });
+            }
+            
+      
+          setArtistPhoto(artistPhotoArray);
+          console.log("WATCH THIS", artistPhoto);
           setTracks(newTrackInfos);
           setDisplayResult(true);
         });
@@ -188,9 +215,12 @@ function App() {
           artistInfo={artistInfo}
           tracks={tracks}
           searchBy={searchBy}
+          artistPhoto={artistPhoto}
         />
       ) : (
-        <div className="result"></div>
+        <div className="result">
+          <h2>No result</h2>
+        </div>
       )}
       <RecentSearches
         searchBy={searchBy}
