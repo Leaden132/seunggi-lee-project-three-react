@@ -1,5 +1,5 @@
 
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const ResultSection = ({artistInfo, tracks, searchBy}) => {
     console.log(tracks);
@@ -13,14 +13,14 @@ const ResultSection = ({artistInfo, tracks, searchBy}) => {
 
             <img className="profilePhoto" src={artistInfo.photo}></img>
             <ul>
-                <li>Name: {artistInfo.artistName}</li>
-                <li>Alternative Name: {artistInfo.altName}</li>
-                <li>Born in: {artistInfo.yearBorn}</li>
-                <li>logo: {artistInfo.logo}</li>
-                <li>country: {artistInfo.country}</li>
-                <li>gender: {artistInfo.gender}</li>
-                <li>genre: {artistInfo.genre}</li>
-                <li>style: {artistInfo.style}</li>
+                <li><FontAwesomeIcon icon="music" className="music" /> Name: {artistInfo.artistName}</li>
+                <li><FontAwesomeIcon icon="music" className="music" /> Alternative Name: {artistInfo.altName}</li>
+                <li><FontAwesomeIcon icon="music" className="music" /> Born in: {artistInfo.yearBorn}</li>
+                <li><FontAwesomeIcon icon="music" className="music" /> logo: {artistInfo.logo}</li>
+                <li><FontAwesomeIcon icon="music" className="music" /> country: {artistInfo.country}</li>
+                <li><FontAwesomeIcon icon="music" className="music" /> gender: {artistInfo.gender}</li>
+                <li><FontAwesomeIcon icon="music" className="music" /> genre: {artistInfo.genre}</li>
+                <li><FontAwesomeIcon icon="music" className="music" /> style: {artistInfo.style}</li>
                 <li>facebook: {artistInfo.facebook}</li>
                 <li>twitter: {artistInfo.twitter}</li>
                 <li>website: {artistInfo.website}</li>

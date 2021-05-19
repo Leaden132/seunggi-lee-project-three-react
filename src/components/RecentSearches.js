@@ -16,7 +16,7 @@ const RecentSearches = (props) => {
                         <p>{category}: {search.name}</p>
                         <img src=""></img>
                         <button className = "button remove"
-               onClick={()=>{props.removeSearch(search.key)}}></button>
+               onClick={()=>{props.removeSearch(search.key)}}>X</button>
                     </li>
                 )
             })

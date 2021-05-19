@@ -39,7 +39,7 @@ html {
 }
 
 body {
-  background: url('../assets/835508_music-website-background-images-hd_2560x1600_h.webp');
+  background: url('../assets/835508_music-website-background-images-hd_2560x1600_h.jpg');
   background-size:cover;
 }
 
@@ -54,6 +54,7 @@ h1 {
 
 h2 {
   font-size:2rem;
+  margin-top:2rem;
 }
 
 li {
@@ -72,12 +73,10 @@ p {
   margin: 2rem 0;
 }
 
-.recentSearch button {
-  font-size:2rem;
+
+.searchByContainer {
+  text-align:center;
 }
-
-
-
 
 
 .searchByButton,
@@ -91,6 +90,19 @@ p {
   border: 3px solid white;
   line-height:1;
   color:white;
+}
+
+.remove {
+  border-radius: 2rem;
+  padding: 0.9rem;
+  margin: 0 2rem;
+  text-transform:uppercase;
+  font-size:2rem;
+  background-color:transparent;
+  border: 3px solid white;
+  line-height:1;
+  color:white;
+  font-size:1.2rem;
 }
 
 
@@ -124,14 +136,22 @@ p {
 }
 
 .searchByButton:hover,
-.submitButton:hover {
+.submitButton:hover
+ {
   cursor:pointer;
   border: 3px solid rgb(97, 97, 218);
   
 }
 
+.remove:hover {
+  cursor:pointer;
+  border: 3px solid rgb(97, 97, 218);
+  color:rgb(97, 97, 218);
+}
+
 .searchContainer {
   display:flex;
+  
 }
 
 .searchContainer li {
@@ -159,13 +179,13 @@ p {
   margin: 2rem 0;
   margin-left:1.5rem;
   width:50rem;
-  border: 3px solid rgb(97, 97, 218);
+  border: 3px solid rgb(2, 24, 43);
 }
 
 
 
 .search {
-  /* display:none; */
+  display:none;
   margin-top: 5rem;
   margin-bottom:5rem;
   
