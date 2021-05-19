@@ -1,24 +1,32 @@
 
 
-const RecentSearches = (props) => {
+const RecentSearches = ({searchBy, searches, searchItemHistory, handleRemoveSearch}) => {
 
-    let category = props.searchBy;
+
 
     return(
         <>
-        <h4>Recent Searches</h4>
+        <h4>Recently Searched artists</h4>
         <div className = "recentSearches">
         <ul className = "searchContainer">
         {
-            props.searches.map((search)=>{
-                return(
-                    <li className="recentSearch" key ={search.key}>
-                        <p>{category}: {search.name}</p>
-                        <img src=""></img>
-                        <button className = "button remove"
-               onClick={()=>{props.removeSearch(search.key)}}>X</button>
-                    </li>
-                )
+            searchItemHistory.map((search)=>{
+                return (
+                  <li className="recentSearch" key={search.key}>
+                    <img className="recentItem" src={search.image}></img>
+                    <a href={search.link}>
+                      <span>{search.name}</span>
+                    </a>
+                    <button
+                      className="button remove"
+                      onClick={() => {
+                        handleRemoveSearch(search.key);
+                      }}
+                    >
+                      X
+                    </button>
+                  </li>
+                );
             })
         }
         
