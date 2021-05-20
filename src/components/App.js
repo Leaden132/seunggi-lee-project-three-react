@@ -40,7 +40,7 @@ function App() {
     const urlDB = new URL(
       `https://theaudiodb.com/api/v1/json/${apiKeyDB}/${categoryDB}=${userInput}`
     );
-    const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
+    const url = new URL(`https://ws.audioscrobbler.com/2.0/`);
 
     if (searchBy === "artist") {
       fetch(urlDB)
