@@ -13,7 +13,7 @@ const RecentSearches = ({searchBy, searches, searchItemHistory, handleRemoveSear
             searchItemHistory.map((search)=>{
                 return (
                   <li className="recentSearch" key={search.key}>
-                    <img className="recentItem" src={search.image}></img>
+                    <img className="recentItem" alt="Thumbnails of the recently searched artists" src={search.image}></img>
                     <a href={search.link}>
                       <span>{search.name}</span>
                     </a>

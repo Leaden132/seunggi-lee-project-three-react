@@ -23,7 +23,6 @@ function App() {
   const apiKeyDB = "523532";
   let categoryDB = "search.php?s";
   let category = "track.search";
-  let track = "believe";
   let artistPhotoArray = [];
 
   const [displayResult, setDisplayResult] = useState(false);
@@ -34,7 +33,6 @@ function App() {
   const [searchBy, setSearchBy] = useState("artist");
   const [userInput, setUserInput] = useState("");
   const [searchItemHistory, setSearchItemHistory] = useState([]);
-  const [checkState, setCheckState] = useState(false);
 
   const dbRef = firebase.database().ref();
 
@@ -154,8 +152,6 @@ function App() {
       dbRef.on("value", (res) => {
         const newDataArray = [];
         const data = res.val();
-        console.log(data);
-
         for (let key in data) {
           let searchObj = {
             key: key,
@@ -163,13 +159,12 @@ function App() {
             name: data[key].artistName,
             link: data[key].website,
           };
-
           newDataArray.unshift(searchObj);
         }
         setSearchItemHistory(newDataArray);
       });
-    },
-    [] // <-- dependency array
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []
   );
 
   const handleUserInput = (event) => {
@@ -222,7 +217,6 @@ function App() {
             searchBy={searchBy}
             artistPhoto={artistPhoto}
             artistPhotoArray={artistPhotoArray}
-            checkState={checkState}
           />
       ) : (
         <div className="result">

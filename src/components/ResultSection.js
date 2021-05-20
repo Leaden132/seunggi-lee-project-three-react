@@ -1,14 +1,7 @@
-import {useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 const ResultSection = ({checkState, artistPhotoArray, artistPhoto, artistInfo, tracks, searchBy}) => {
-    console.log("ok");
-    console.log(artistPhoto);
-    let {photo1, photo2, photo3, photo4} = artistPhotoArray;
-    console.log(photo1);
-    console.log("OK");
-
 
     if (searchBy === 'artist') {
         console.log("art!");
@@ -17,7 +10,7 @@ const ResultSection = ({checkState, artistPhotoArray, artistPhoto, artistInfo, t
             <div className = "result">
             <h2>{searchBy}</h2>
 
-            <img className="profilePhoto" src={artistInfo.photo}></img>
+            <img className="profilePhoto" alt={`thumbnail of the ${artistInfo.artistName}`} src={artistInfo.photo}></img>
             <ul>
                 <li><FontAwesomeIcon icon="music" className="music" /> Name: {artistInfo.artistName}</li>
                 <li><FontAwesomeIcon icon="music" className="music" /> Alternative Name: {artistInfo.altName}</li>
@@ -54,7 +47,7 @@ const ResultSection = ({checkState, artistPhotoArray, artistPhoto, artistInfo, t
                     
                     return (
                       <li className="track" key={index}>
-                        <img src={artistPhoto[index]}></img>
+                        <img src={artistPhoto[index]} alt={`thumbnail of ${track.artist}`}></img>
                         <p>title: {track.title}</p>
                         <p>artist: {track.artist}</p>
                         <p>last FM Link: {track.lastFMLink}</p>
