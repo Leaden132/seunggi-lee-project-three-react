@@ -1,8 +1,14 @@
 import {useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const ResultSection = ({artistPhotoArray, artistPhoto, artistInfo, tracks, searchBy}) => {
+
+const ResultSection = ({checkState, artistPhotoArray, artistPhoto, artistInfo, tracks, searchBy}) => {
+    console.log("ok");
     console.log(artistPhoto);
+    let {photo1, photo2, photo3, photo4} = artistPhotoArray;
+    console.log(photo1);
+    console.log("OK");
+
 
     if (searchBy === 'artist') {
         console.log("art!");
@@ -39,17 +45,16 @@ const ResultSection = ({artistPhotoArray, artistPhoto, artistInfo, tracks, searc
             <div className = "result">
             <h2>Result</h2>
             <ul>
-                
                             {
-                                
                                 
                 tracks.map((track, index)=>{
                     console.log('CHECK THIS', artistPhoto[index]);
                     console.log(index);
                     console.log(track);
+                    
                     return (
                       <li className="track" key={index}>
-                        <img src={artistPhotoArray[index]}></img>
+                        <img src={artistPhoto[index]}></img>
                         <p>title: {track.title}</p>
                         <p>artist: {track.artist}</p>
                         <p>last FM Link: {track.lastFMLink}</p>
@@ -57,12 +62,6 @@ const ResultSection = ({artistPhotoArray, artistPhoto, artistInfo, tracks, searc
                     );
                 })
             }
-
-            {/* {artistPhoto.map((photo)=>{
-                console.log(photo);
-                return <img src={photo}></img>;
-            })
-            } */}
 
             </ul>
             </div>
@@ -73,4 +72,4 @@ const ResultSection = ({artistPhotoArray, artistPhoto, artistInfo, tracks, searc
 
 }
 
-export default ResultSection
+export default ResultSection;

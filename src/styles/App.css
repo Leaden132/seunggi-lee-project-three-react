@@ -98,6 +98,11 @@ p {
   color:white;
 }
 
+.submitButton {
+  padding: 1.6rem 0;
+  width:15%;
+}
+
 .remove {
   border-radius: 2rem;
   padding: 0.5rem 0.9rem;
@@ -121,7 +126,7 @@ p {
   border: 3px solid white;
   line-height:1;
   color:white;
-  width:45rem;
+  width:40%;
   text-align:center;
   
 }
@@ -138,14 +143,15 @@ p {
 
 .searchLabel{
   border-radius: 2rem;
-  padding: 16px 3rem;
+  padding: 0;
   margin: 0;
   text-transform:uppercase;
-  font-size:2rem;
+  font-size:1.8rem;
   background-color:transparent;
   /* border: 3px solid white; */
   line-height:1;
   color:white;
+  
 }
 
 .searchByButton:hover,
@@ -243,4 +249,22 @@ p {
 footer p{
   text-align:center;
   margin-bottom:0;
+}
+
+
+@media (max-width:680px){
+  .profilePhoto{
+    display:block;
+    width:90%;
+    margin:0 auto;
+  }
+
+  .searchLabel {
+    display:block;
+    margin-bottom:2rem;
+  }
+
+  .submitButton{
+    min-width:10rem;
+  }
 }

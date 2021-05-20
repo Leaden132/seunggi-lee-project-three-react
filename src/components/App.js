@@ -34,6 +34,7 @@ function App() {
   const [searchBy, setSearchBy] = useState("artist");
   const [userInput, setUserInput] = useState("");
   const [searchItemHistory, setSearchItemHistory] = useState([]);
+  const [checkState, setCheckState] = useState(false);
 
   const dbRef = firebase.database().ref();
 
@@ -107,7 +108,6 @@ function App() {
         })
         .then((jsonResponse) => {
           console.log(jsonResponse);
-
           const newTrackInfos = jsonResponse.results.trackmatches.track.slice(0, 5).map(
             (track) => {
               return {
@@ -123,7 +123,6 @@ function App() {
             const trackArtists = newTrackInfos.map((track)=>{
               return track.artist;
             })
-
             for (let i = 0; i < 5; i++){
               const urlDB = `https://theaudiodb.com/api/v1/json/${apiKeyDB}/${categoryDB}=${trackArtists[i]}`;
               fetch(urlDB)
@@ -137,12 +136,13 @@ function App() {
                     let artistPhoto = jsonResponse.artists[0].strArtistThumb
                     artistPhotoArray.push(artistPhoto);
                     console.log(artistPhotoArray);
-                    
+                    setArtistPhoto(artistPhotoArray);
                   }
                 });
             }
           
           console.log("WATCH THIS", artistPhoto);
+          console.log(artistPhotoArray);
           setTracks(newTrackInfos);
           setDisplayResult(true);
         });
@@ -197,38 +197,39 @@ function App() {
   console.log(userInput);
   console.log(tracks);
 
+
+
   return (
     <>
       <h1>Find Your Music!</h1>
 
       <SearchBy handleSearchBy={handleSearchBy} />
-      {
-        displaySearch ? (
-          <SearchBar
-        searchBy={searchBy}
-        userInput={userInput}
-        handleUserInput={handleUserInput}
-        handleSubmitClick={handleSubmitClick}
-      />
-        ) : (
-          <div></div>
-        )
-      }
-
+      {displaySearch ? (
+        <SearchBar
+          searchBy={searchBy}
+          userInput={userInput}
+          handleUserInput={handleUserInput}
+          handleSubmitClick={handleSubmitClick}
+        />
+      ) : (
+        <div></div>
+      )}
 
       {displayResult ? (
-        <ResultSection
-          artistInfo={artistInfo}
-          tracks={tracks}
-          searchBy={searchBy}
-          artistPhoto={artistPhoto}
-          artistPhotoArray={artistPhotoArray}
-        />
+          <ResultSection
+            artistInfo={artistInfo}
+            tracks={tracks}
+            searchBy={searchBy}
+            artistPhoto={artistPhoto}
+            artistPhotoArray={artistPhotoArray}
+            checkState={checkState}
+          />
       ) : (
         <div className="result">
           <h2>No result</h2>
         </div>
       )}
+
       <RecentSearches
         searchBy={searchBy}
         searchItemHistory={searchItemHistory}
