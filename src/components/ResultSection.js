@@ -1,7 +1,7 @@
-
+import {useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const ResultSection = ({artistPhoto, artistInfo, tracks, searchBy}) => {
+const ResultSection = ({artistPhotoArray, artistPhoto, artistInfo, tracks, searchBy}) => {
     console.log(artistPhoto);
 
     if (searchBy === 'artist') {
@@ -39,21 +39,22 @@ const ResultSection = ({artistPhoto, artistInfo, tracks, searchBy}) => {
             <div className = "result">
             <h2>Result</h2>
             <ul>
+                
                             {
-
-
+                                
+                                
                 tracks.map((track, index)=>{
                     console.log('CHECK THIS', artistPhoto[index]);
                     console.log(index);
                     console.log(track);
-                    return(
-                        <li className="track" key={index}>
-                            <img src={artistPhoto[index]}></img>
-                            <p>title: {track.title}</p>
-                            <p>artist: {track.artist}</p>
-                            <p>last FM Link: {track.lastFMLink}</p>
-                        </li>
-                    )
+                    return (
+                      <li className="track" key={index}>
+                        <img src={artistPhotoArray[index]}></img>
+                        <p>title: {track.title}</p>
+                        <p>artist: {track.artist}</p>
+                        <p>last FM Link: {track.lastFMLink}</p>
+                      </li>
+                    );
                 })
             }
 

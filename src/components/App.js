@@ -24,19 +24,20 @@ function App() {
   let categoryDB = "search.php?s";
   let category = "track.search";
   let track = "believe";
+  let artistPhotoArray = [];
 
   const [displayResult, setDisplayResult] = useState(false);
+  const [displaySearch, setDisplaySearch] = useState(false);
   const [tracks, setTracks] = useState([""]);
   const [artistInfo, setArtistInfo] = useState("");
   const [artistPhoto, setArtistPhoto] = useState([]);
   const [searchBy, setSearchBy] = useState("artist");
-  const [searches, setSearches] = useState([]);
   const [userInput, setUserInput] = useState("");
   const [searchItemHistory, setSearchItemHistory] = useState([]);
 
   const dbRef = firebase.database().ref();
 
-  const handleSearch = async () => {
+  const handleSearch = () => {
     const urlDB = new URL(
       `https://theaudiodb.com/api/v1/json/${apiKeyDB}/${categoryDB}=${userInput}`
     );
@@ -123,8 +124,6 @@ function App() {
               return track.artist;
             })
 
-            let artistPhotoArray = [];
-
             for (let i = 0; i < 5; i++){
               const urlDB = `https://theaudiodb.com/api/v1/json/${apiKeyDB}/${categoryDB}=${trackArtists[i]}`;
               fetch(urlDB)
@@ -142,9 +141,7 @@ function App() {
                   }
                 });
             }
-            
-      
-          setArtistPhoto(artistPhotoArray);
+          
           console.log("WATCH THIS", artistPhoto);
           setTracks(newTrackInfos);
           setDisplayResult(true);
@@ -192,6 +189,8 @@ function App() {
   const handleSearchBy = (search) => {
     setSearchBy(search);
     setDisplayResult(false);
+    setDisplaySearch(true);
+
   };
 
   console.log(searchBy);
@@ -203,12 +202,19 @@ function App() {
       <h1>Find Your Music!</h1>
 
       <SearchBy handleSearchBy={handleSearchBy} />
-      <SearchBar
+      {
+        displaySearch ? (
+          <SearchBar
         searchBy={searchBy}
         userInput={userInput}
         handleUserInput={handleUserInput}
         handleSubmitClick={handleSubmitClick}
       />
+        ) : (
+          <div></div>
+        )
+      }
+
 
       {displayResult ? (
         <ResultSection
@@ -216,6 +222,7 @@ function App() {
           tracks={tracks}
           searchBy={searchBy}
           artistPhoto={artistPhoto}
+          artistPhotoArray={artistPhotoArray}
         />
       ) : (
         <div className="result">
@@ -225,7 +232,6 @@ function App() {
       <RecentSearches
         searchBy={searchBy}
         searchItemHistory={searchItemHistory}
-        searches={searches}
         handleRemoveSearch={handleRemoveSearch}
       />
       <Footer />
