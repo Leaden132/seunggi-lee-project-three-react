@@ -250,6 +250,24 @@ p {
   color:rgb(97, 97, 218);
 }
 
+.fa-facebook,
+.fa-twitter,
+.fa-link {
+  color:rgb(97, 97, 218);
+  font-size:4rem;
+  margin-left:2rem;
+}
+
+
+
+.socialMedia {
+  display:flex;
+  text-align:center;
+  justify-content: center;
+}
+
+
+
 footer p{
   text-align:center;
   margin-bottom:0;

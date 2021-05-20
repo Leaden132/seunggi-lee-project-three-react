@@ -52,21 +52,23 @@ const ResultSection = ({
               <FontAwesomeIcon icon="music" className="music" /> style:{" "}
               {artistInfo.style}
             </li>
-            <li>
-              <a href={artistInfo.facebook}>
-                <FontAwesomeIcon icon={["fab", "facebook"]} />
-              </a>
-            </li>
-            <li>
-              <a href={artistInfo.twitter}>
-                <FontAwesomeIcon icon={["fab", "twitter"]} />
-              </a>
-            </li>
-            <li>
-              <a href={artistInfo.link}>
-                <FontAwesomeIcon icon={["fab", "link"]} />
-              </a>
-            </li>
+            <div className="socialMedia">
+              <li>
+                <a href={artistInfo.facebook} target="_blank">
+                  <FontAwesomeIcon icon={["fab", "facebook"]} />
+                </a>
+              </li>
+              <li>
+                <a href={artistInfo.twitter} target="_blank">
+                  <FontAwesomeIcon icon={["fab", "twitter"]} />
+                </a>
+              </li>
+              <li>
+                <a href={artistInfo.website} target="_blank">
+                  <FontAwesomeIcon icon={["fa", "link"]} />
+                </a>
+              </li>
+            </div>
             <li>
               biography: <p>{artistInfo.biography}</p>
             </li>
