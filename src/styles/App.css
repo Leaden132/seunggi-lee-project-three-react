@@ -246,6 +246,10 @@ p {
   display:block;
 }
 
+.fa-music {
+  color:rgb(97, 97, 218);
+}
+
 footer p{
   text-align:center;
   margin-bottom:0;

@@ -12,11 +12,12 @@ import {
   faCheckSquare,
   faCoffee,
   faMusic,
+  faLink
 } from "@fortawesome/free-solid-svg-icons";
 
 //https://fontawesome.com/how-to-use/on-the-web/using-with/react
 
-library.add(fab, faCheckSquare, faCoffee, faMusic);
+library.add(fab, faCheckSquare, faCoffee, faMusic, faLink);
 
 function App() {
   const apiKey = "e387d3c7e9d57238bcacc400d12838b1";
