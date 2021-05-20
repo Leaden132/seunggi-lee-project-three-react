@@ -41,23 +41,18 @@ function App() {
       `https://theaudiodb.com/api/v1/json/${apiKeyDB}/${categoryDB}=${userInput}`
     );
     const url = new URL(`http://ws.audioscrobbler.com/2.0/`);
-    
-    
-    if (searchBy === "artist") {
-      console.log("WORKED!");
 
+    if (searchBy === "artist") {
       fetch(urlDB)
         .then((response) => {
           return response.json();
         })
         .then((jsonResponse) => {
           if (jsonResponse.artists == null) {
-            console.log(jsonResponse.artists);
-            console.log("NOT FOUND");
+            alert("No result found");
             setDisplayResult(false);
           } else {
             const data = jsonResponse.artists[0];
-            console.log(data);
             let artistInfoObj = {
               artistName: data.strArtist,
               altName: data.strArtistAlternate,
@@ -81,16 +76,12 @@ function App() {
             dbRef.push({
               photo: artistInfoObj.photo,
               artistName: artistInfoObj.artistName,
-              website: artistInfoObj.website
+              website: artistInfoObj.website,
             });
-
             setDisplayResult(true);
           }
         });
-    } 
-    
-    
-    else {
+    } else {
       const searchParams = new URLSearchParams({
         method: category,
         api_key: apiKey,
@@ -105,72 +96,62 @@ function App() {
           return response.json();
         })
         .then((jsonResponse) => {
-          console.log(jsonResponse);
-          const newTrackInfos = jsonResponse.results.trackmatches.track.slice(0, 5).map(
-            (track) => {
+          const newTrackInfos = jsonResponse.results.trackmatches.track
+            .slice(0, 5)
+            .map((track) => {
               return {
                 mbid: track.mbid,
                 title: track.name,
                 artist: track.artist,
                 lastFMLink: track.url,
               };
-            }
-          );
-            console.log(newTrackInfos)
-            
-            const trackArtists = newTrackInfos.map((track)=>{
-              return track.artist;
-            })
-            for (let i = 0; i < 5; i++){
-              const urlDB = `https://theaudiodb.com/api/v1/json/${apiKeyDB}/${categoryDB}=${trackArtists[i]}`;
-              fetch(urlDB)
-                .then((response) => {
-                  return response.json();
-                })
-                .then((jsonResponse) => {
-                  if (jsonResponse.artists == null) {
-                    console.log("NOT FOUND");
-                  } else {
-                    let artistPhoto = jsonResponse.artists[0].strArtistThumb
-                    artistPhotoArray.push(artistPhoto);
-                    console.log(artistPhotoArray);
-                    setArtistPhoto(artistPhotoArray);
-                  }
-                });
-            }
-          
-          console.log("WATCH THIS", artistPhoto);
-          console.log(artistPhotoArray);
+            });
+          const trackArtists = newTrackInfos.map((track) => {
+            return track.artist;
+          });
+          for (let i = 0; i < 5; i++) {
+            const urlDB = `https://theaudiodb.com/api/v1/json/${apiKeyDB}/${categoryDB}=${trackArtists[i]}`;
+            fetch(urlDB)
+              .then((response) => {
+                return response.json();
+              })
+              .then((jsonResponse) => {
+                if (jsonResponse.artists == null) {
+                  console.log("NOT FOUND");
+                } else {
+                  let artistPhoto = jsonResponse.artists[0].strArtistThumb;
+                  artistPhotoArray.push(artistPhoto);
+                  setArtistPhoto(artistPhotoArray);
+                }
+              });
+          }
           setTracks(newTrackInfos);
           setDisplayResult(true);
         });
     }
   };
 
-  useEffect(
-    () => {
-      dbRef.on("value", (res) => {
-        const newDataArray = [];
-        const data = res.val();
-        for (let key in data) {
-          let searchObj = {
-            key: key,
-            image: data[key].photo,
-            name: data[key].artistName,
-            link: data[key].website,
-          };
-          newDataArray.unshift(searchObj);
-        }
-        setSearchItemHistory(newDataArray);
-      });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []
-  );
+  useEffect(() => {
+    dbRef.on("value", (res) => {
+      const newDataArray = [];
+      const data = res.val();
+      for (let key in data) {
+        let searchObj = {
+          key: key,
+          image: data[key].photo,
+          name: data[key].artistName,
+          link: data[key].website,
+        };
+        newDataArray.unshift(searchObj);
+      }
+      setSearchItemHistory(newDataArray);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleUserInput = (event) => {
     let inputValue = event.target.value;
     setUserInput(inputValue);
-    console.log(userInput);
   };
 
   const handleSubmitClick = (event) => {
@@ -185,14 +166,7 @@ function App() {
     setSearchBy(search);
     setDisplayResult(false);
     setDisplaySearch(true);
-
   };
-
-  console.log(searchBy);
-  console.log(userInput);
-  console.log(tracks);
-
-
 
   return (
     <>
@@ -211,13 +185,13 @@ function App() {
       )}
 
       {displayResult ? (
-          <ResultSection
-            artistInfo={artistInfo}
-            tracks={tracks}
-            searchBy={searchBy}
-            artistPhoto={artistPhoto}
-            artistPhotoArray={artistPhotoArray}
-          />
+        <ResultSection
+          artistInfo={artistInfo}
+          tracks={tracks}
+          searchBy={searchBy}
+          artistPhoto={artistPhoto}
+          artistPhotoArray={artistPhotoArray}
+        />
       ) : (
         <div className="result">
           <h2>No result</h2>

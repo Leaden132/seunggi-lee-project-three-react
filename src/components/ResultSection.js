@@ -42,8 +42,6 @@ const ResultSection = ({checkState, artistPhotoArray, artistPhoto, artistInfo, t
                                 
                 tracks.map((track, index)=>{
                     console.log('CHECK THIS', artistPhoto[index]);
-                    console.log(index);
-                    console.log(track);
                     
                     return (
                       <li className="track" key={index}>
