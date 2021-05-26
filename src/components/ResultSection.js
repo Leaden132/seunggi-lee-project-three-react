@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {useEffect, useState} from 'react'
 
 const ResultSection = ({
   checkState,
@@ -7,7 +8,15 @@ const ResultSection = ({
   artistInfo,
   tracks,
   searchBy,
+  trigger
 }) => {
+
+  const [resultTrigger, setResultTrigger] = useState(trigger);
+
+   useEffect(() => {
+     setResultTrigger(trigger);
+   }, [trigger]);
+
   if (searchBy === "artist") {
     return (
       <section className="resultSection">

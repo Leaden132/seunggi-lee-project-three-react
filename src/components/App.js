@@ -34,6 +34,7 @@ function App() {
   const [searchBy, setSearchBy] = useState("artist");
   const [userInput, setUserInput] = useState("");
   const [searchItemHistory, setSearchItemHistory] = useState([]);
+  const [trigger, setTrigger] = useState(false);
 
   const dbRef = firebase.database().ref();
 
@@ -89,9 +90,7 @@ function App() {
         track: userInput,
         format: "json",
       });
-
       url.search = searchParams;
-
       fetch(url)
         .then((response) => {
           return response.json();
@@ -128,6 +127,11 @@ function App() {
           }
           setTracks(newTrackInfos);
           setDisplayResult(true);
+
+          setTimeout(function () {
+            setTrigger(!trigger);
+          }, 500);
+          
         });
     }
   };
@@ -192,6 +196,7 @@ function App() {
           searchBy={searchBy}
           artistPhoto={artistPhoto}
           artistPhotoArray={artistPhotoArray}
+          trigger={trigger}
         />
       ) : (
         <div className="result">
